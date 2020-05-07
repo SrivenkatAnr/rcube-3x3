@@ -22,7 +22,7 @@ for i in range(len(faces)):
     temp[j] = faces[i]
 faces = temp
 
-face_dict = collections.OrderedDict([("top",None), ("left",None), ("front",None), ("right",None), ("back",None), ("bottom",None)])
+face_dict = collections.OrderedDict([("top",None), ("left",None), ("front",None), ("back",None), ("right",None), ("bottom",None)])
 for i in range(6):
     face_dict[list(face_dict.keys())[i]] = faces[i]
 

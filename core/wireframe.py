@@ -50,7 +50,7 @@ class Wireframe:
         right = np.asarray(self.sortFace(right,2,1,False,True)).reshape(4,4)
         left = np.asarray(self.sortFace(left,2,1,True,True)).reshape(4,4)
         
-        self.com = [top,left,front,right,back,bottom]
+        self.com = [top,left,front,back,right,bottom]
         for k in range(len(faces)):
             for i in range(3):
                 for j in range(3):            

@@ -11,13 +11,13 @@ except:
 import numpy as np
 from sklearn.cluster import KMeans
 
-#6:black 0:white 1:orange 2:green 3:red 4:blue 5:yellow
+#6:black 0:white 1:orange 2:green 3:blue 4:red 5:yellow
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 ORANGE = (0,128,255)
 GREEN = (0,255,0)
-RED = (0,0,255)
 BLUE = (255,0,0)
+RED = (0,0,255)
 YELLOW = (0,255,255)
 
 class featureExtract():
@@ -151,7 +151,7 @@ class featureExtract():
         kmeans = KMeans(n_clusters=6)
         kmeans.fit(colours_list)
         colours = kmeans.cluster_centers_
-        Col = [WHITE,ORANGE,GREEN,RED,BLUE,YELLOW]
+        Col = [WHITE,ORANGE,GREEN,BLUE,RED,YELLOW]
         B = np.asarray(Col)[:,0]
         G = np.asarray(Col)[:,1]
         R = np.asarray(Col)[:,2]
@@ -221,10 +221,10 @@ class featureExtract():
                     self.face[k][i,j] = GREEN
                     self.ccount[2] += 1
                 elif mat[i,j] == 3:
-                    self.face[k][i,j] = RED
+                    self.face[k][i,j] = BLUE
                     self.ccount[3] += 1
                 elif mat[i,j] == 4:
-                    self.face[k][i,j] = BLUE
+                    self.face[k][i,j] = RED
                     self.ccount[4] += 1
                 elif mat[i,j] == 5:
                     self.face[k][i,j] = YELLOW

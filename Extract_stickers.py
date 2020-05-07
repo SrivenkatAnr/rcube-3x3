@@ -5,12 +5,12 @@ except:
 	import cv2
 from core.cube_feature import featureExtract
 
-side0 = cv2.imread("images/test-2/image1.jpeg")
-side1 = cv2.imread("images/test-2/image2.jpeg")
-side2 = cv2.imread("images/test-2/image3.jpeg")
-side3 = cv2.imread("images/test-2/image4.jpeg")
-side4 = cv2.imread("images/test-2/image5.jpeg")
-side5 = cv2.imread("images/test-2/image6.jpeg")
+side0 = cv2.imread("images/solved/image1.jpeg")
+side1 = cv2.imread("images/solved/image2.jpeg")
+side2 = cv2.imread("images/solved/image3.jpeg")
+side3 = cv2.imread("images/solved/image4.jpeg")
+side4 = cv2.imread("images/solved/image5.jpeg")
+side5 = cv2.imread("images/solved/image6.jpeg")
 
 cube_ext = featureExtract([side0,side1,side2,side3,side4,side5])
 

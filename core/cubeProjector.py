@@ -13,7 +13,7 @@ import time
 
 pygame.init()
 
-colors = [(255, 255, 255), (255,128,0), (0,255,0), (255,0,0), (0,0,255), (255,255,0), (0, 0, 0)]
+colors = [(255, 255, 255), (255,128,0), (0,255,0), (0,0,255), (255,0,0), (255,255,0), (0, 0, 0)]
 
 key_to_function = {
     pygame.K_LEFT:   (lambda x: x.transformall(x.rotateYMatrix(-15))),
@@ -52,7 +52,7 @@ class cubeProjection:
     def define3Dcube(self):
         for wf in self.wireframes.values():
             faces = wf.faces
-            face_dict = collections.OrderedDict([("top",None), ("left",None), ("front",None), ("right",None), ("back",None), ("bottom",None)])
+            face_dict = collections.OrderedDict([("top",None), ("left",None), ("front",None), ("back",None), ("right",None), ("bottom",None)])
             for i in range(6):
                 face_dict[list(face_dict.keys())[i]] = faces[i]
             self.cube3D = Cube(face_dict)
@@ -173,7 +173,7 @@ class cubeProjection:
             wireframe.transform(matrix)
             
     def updateall(self):
-        facelist = self.cube3D.returnAllFaces()
+        facelist = self.cube3D.returnAlignedFaces()
         for wireframe in self.wireframes.values():
             wireframe.updateFaces(facelist)
             
