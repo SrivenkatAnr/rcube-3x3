@@ -119,17 +119,17 @@ class Cube(object):
 		#check if input faces are oriented properly	
 		for edge in self.edgelist:
 			if edge[0] + edge[1] == 5:
-				return 1
+				return 0
 
 		for corner in self.cornerlist:
 			if (corner[0]+corner[1] == 5) or (corner[1]+corner[2] == 5) or (corner[2]+corner[0] == 5):
-				return 2
+				return 0
 
 		if len(set(map(tuple,self.edgelist))) != len(self.edgelist):
-			return 3
+			return 0
 
 		if len(set(map(tuple,self.cornerlist))) != len(self.cornerlist):
-			return 4
+			return 0
 
 		return 5
 

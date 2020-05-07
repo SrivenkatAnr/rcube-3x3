@@ -16,11 +16,7 @@ for i in range(6):
 	side = np.loadtxt("temp/side{}.txt".format(i))
 	faces.append(np.uint8(side))
 
-temp = [None,None,None,None,None,None]
-for i in range(len(faces)):
-    j = faces[i][1][1]
-    temp[j] = faces[i]
-faces = temp
+faces = sorted(faces,key=lambda b:b[1][1],reverse=False)
 
 face_dict = collections.OrderedDict([("top",None), ("left",None), ("front",None), ("back",None), ("right",None), ("bottom",None)])
 for i in range(6):
