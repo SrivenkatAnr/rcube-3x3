@@ -8,6 +8,37 @@ class Cube(object):
 		self.cube = np.array([Piece3D() for i in range(27)]).reshape((3, 3, 3))
 		f = slice(None)
 		self.slices = collections.OrderedDict([("top",(-1, f, f)),("left",(f, -1, f)),("front",(f, f, 0)),("back",(f, f, -1)),("right",(f, 0, f)),("bottom",(0, f, f))])
+		self.updateCube(faces)
+
+	def setFaces(self,faces):
+		keys = list(faces.keys())
+		for l0 in range(4):
+			for l1 in range(4):
+				for l2 in range(4):
+					for l3 in range(4):
+						for l4 in range(4):
+							for l5 in range(4):
+								faces[keys[5]] = np.rot90(faces[keys[5]],1)
+								if self.updateCube(faces):
+									return 1
+							faces[keys[4]] = np.rot90(faces[keys[4]],1)
+							if self.updateCube(faces):
+								return 1
+						faces[keys[3]] = np.rot90(faces[keys[3]],1)
+						if self.updateCube(faces):
+							return 1
+					faces[keys[2]] = np.rot90(faces[keys[2]],1)
+					if self.updateCube(faces):
+						return 1
+				faces[keys[1]] = np.rot90(faces[keys[1]],1)
+				if self.updateCube(faces):
+					return 1
+			faces[keys[0]] = np.rot90(faces[keys[0]],1)
+			if self.updateCube(faces):
+				return 1
+		raise Exception("Invalid face input")		
+
+	def updateCube(self,faces):
 		for face in faces.keys():
 			for i in range(3):
 				for j in range(3):
@@ -16,8 +47,10 @@ class Cube(object):
 			for row in layer:
 				for piece in row:
 					piece.fillNullFaces()
+
 		self.edgelist = self.returnEdges()
 		self.cornerlist = self.returnCorners()
+		return self.checkBuild()
 
 	def rotate(self, orientation, side):
 		cube = self.cube
@@ -119,18 +152,18 @@ class Cube(object):
 		#check if input faces are oriented properly	
 		for edge in self.edgelist:
 			if edge[0] + edge[1] == 5:
-				return 0
+				return False
 
 		for corner in self.cornerlist:
 			if (corner[0]+corner[1] == 5) or (corner[1]+corner[2] == 5) or (corner[2]+corner[0] == 5):
-				return 0
+				return False
 
 		if len(set(map(tuple,self.edgelist))) != len(self.edgelist):
-			return 0
+			return False
 
 		if len(set(map(tuple,self.cornerlist))) != len(self.cornerlist):
-			return 0
+			return False
 
-		return 5
+		return True
 
 
