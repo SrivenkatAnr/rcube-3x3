@@ -13,7 +13,7 @@ import time
 
 pygame.init()
 
-colors = [(255, 255, 255), (255,128,0), (0,255,0), (255,0,0), (0,0,255), (255,255,0), (0, 0, 0)]
+colors = [(255, 255, 255), (255,128,0), (0,255,0), (0,0,255), (255,0,0), (255,255,0), (0, 0, 0)]
 
 key_to_function = {
     pygame.K_LEFT:   (lambda x: x.transformall(x.rotateYMatrix(-15))),
@@ -52,7 +52,7 @@ class cubeProjection:
     def define3Dcube(self):
         for wf in self.wireframes.values():
             faces = wf.faces
-            face_dict = collections.OrderedDict([("top",None), ("left",None), ("front",None), ("right",None), ("back",None), ("bottom",None)])
+            face_dict = collections.OrderedDict([("top",None), ("left",None), ("front",None), ("back",None), ("right",None), ("bottom",None)])
             for i in range(6):
                 face_dict[list(face_dict.keys())[i]] = faces[i]
             self.cube3D = Cube(face_dict)
@@ -87,46 +87,46 @@ class cubeProjection:
     def rotateR(self):
         t = time.time()
         while (time.time() - t)<0.3:
-           for event in pygame.event.get():
-               if event.key == pygame.K_i:
-                   self.cube3D.rotate("counterClockwise","right")
-                   break        
+            for event in pygame.event.get():
+                if event.key == pygame.K_i:
+                    self.cube3D.rotate("counterClockwise","right")
+                    break        
         self.cube3D.rotate("clockwise","right")
 
     def rotateL(self):
         t = time.time()
         while (time.time() - t)<0.3:
-           for event in pygame.event.get():
-               if event.key == pygame.K_i:
-                   self.cube3D.rotate("counterClockwise","left")
-                   break
+            for event in pygame.event.get():
+                if event.key == pygame.K_i:
+                   	self.cube3D.rotate("counterClockwise","left")
+                   	break
         self.cube3D.rotate("clockwise","left")
         
     def rotateU(self):
         t = time.time()
         while (time.time() - t)<0.3:
-           for event in pygame.event.get():
-               if event.key == pygame.K_i:
-                   self.cube3D.rotate("counterClockwise","top")
-                   break        
+             for event in pygame.event.get():
+                 if event.key == pygame.K_i:
+                     self.cube3D.rotate("counterClockwise","top")
+                     break        
         self.cube3D.rotate("clockwise","top")
 
     def rotateD(self):
         t = time.time()
         while (time.time() - t)<0.3:
-           for event in pygame.event.get():
-               if event.key == pygame.K_i:
-                   self.cube3D.rotate("counterClockwise","bottom")
-                   break        
+            for event in pygame.event.get():
+                if event.key == pygame.K_i:
+                    self.cube3D.rotate("counterClockwise","bottom")
+                    break        
         self.cube3D.rotate("clockwise","bottom")  
         
     def rotateF(self):
         t = time.time()
         while (time.time() - t)<0.3:
-           for event in pygame.event.get():
-               if event.key == pygame.K_i:
-                   self.cube3D.rotate("counterClockwise","front")
-                   break        
+             for event in pygame.event.get():
+                 if event.key == pygame.K_i:
+                     self.cube3D.rotate("counterClockwise","front")
+                     break        
         self.cube3D.rotate("clockwise","front")
         
     def rotateB(self):
@@ -173,7 +173,7 @@ class cubeProjection:
             wireframe.transform(matrix)
             
     def updateall(self):
-        facelist = self.cube3D.returnAllFaces()
+        facelist = self.cube3D.returnAlignedFaces()
         for wireframe in self.wireframes.values():
             wireframe.updateFaces(facelist)
             

@@ -78,3 +78,5 @@ while not done:
 	draw()
 	pygame.display.flip()
 	clock.tick(FRAME_RATE)
+
+pygame.quit()

@@ -11,7 +11,7 @@ import numpy as np
 
 faces = []
 for i in range(6):
-	side = np.loadtxt("temp/side{}.txt".format(i))
+	side = np.loadtxt("matrices/solved/side{}.txt".format(i))
 	faces.append(np.uint8(side))
 
 faces = sorted(faces,key=lambda b:b[1][1],reverse=False)
@@ -25,3 +25,4 @@ cube_frame.initFaces(faces)
 cp = cubeProjection(1000,1000)
 cp.addWireframe('cube3D',cube_frame)
 cp.run()
+
