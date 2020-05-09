@@ -3,7 +3,7 @@ from core.legacy_cube import Cube
 
 faces = []
 for i in range(6):
-    side = np.loadtxt("matrices/scrambled/side{}.txt".format(i))
+    side = np.loadtxt("matrices/test-2/side{}.txt".format(i))
     faces.append(np.uint8(side))
 
 faces = sorted(faces,key=lambda b:b[1][1],reverse=False)

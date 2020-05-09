@@ -43,7 +43,7 @@ def draw():
 	cube.render()
 
 movements = {'r':("clockwise","right"),\
-			'l':("clockwise","left"),\
+			 'l':("clockwise","left"),\
 			 'u':("clockwise","top"),\
 			 'f':("clockwise","front"),\
 			 'b':("clockwise","back"),\

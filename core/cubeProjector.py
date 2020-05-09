@@ -173,7 +173,7 @@ class cubeProjection:
             wireframe.transform(matrix)
             
     def updateall(self):
-        facelist = self.cube3D.returnAlignedFaces()
+        facelist = self.cube3D.return3DFaces()
         for wireframe in self.wireframes.values():
             wireframe.updateFaces(facelist)
             
