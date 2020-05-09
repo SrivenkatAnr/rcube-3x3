@@ -87,61 +87,55 @@ class cubeProjection:
     def rotateR(self):
         t = time.time()
         while (time.time() - t)<0.3:
-           for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                   if event.key == pygame.K_i:
-                       self.cube3D.rotate("counterClockwise","right")
-                       break        
+            for event in pygame.event.get():
+                if event.key == pygame.K_i:
+                    self.cube3D.rotate("counterClockwise","right")
+                    break        
         self.cube3D.rotate("clockwise","right")
 
     def rotateL(self):
         t = time.time()
         while (time.time() - t)<0.3:
-           for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                   if event.key == pygame.K_i:
-                       self.cube3D.rotate("counterClockwise","left")
-                       break
+            for event in pygame.event.get():
+                if event.key == pygame.K_i:
+                   	self.cube3D.rotate("counterClockwise","left")
+                   	break
         self.cube3D.rotate("clockwise","left")
         
     def rotateU(self):
         t = time.time()
         while (time.time() - t)<0.3:
-           for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                   if event.key == pygame.K_i:
-                       self.cube3D.rotate("counterClockwise","top")
-                       break        
+             for event in pygame.event.get():
+                 if event.key == pygame.K_i:
+                     self.cube3D.rotate("counterClockwise","top")
+                     break        
         self.cube3D.rotate("clockwise","top")
 
     def rotateD(self):
         t = time.time()
         while (time.time() - t)<0.3:
-           for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                   if event.key == pygame.K_i:
-                       self.cube3D.rotate("counterClockwise","bottom")
-                       break        
+            for event in pygame.event.get():
+                if event.key == pygame.K_i:
+                    self.cube3D.rotate("counterClockwise","bottom")
+                    break        
         self.cube3D.rotate("clockwise","bottom")  
         
     def rotateF(self):
         t = time.time()
         while (time.time() - t)<0.3:
-           for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                   if event.key == pygame.K_i:
-                       self.cube3D.rotate("counterClockwise","front")
-                       break        
+             for event in pygame.event.get():
+                 if event.key == pygame.K_i:
+                     self.cube3D.rotate("counterClockwise","front")
+                     break        
         self.cube3D.rotate("clockwise","front")
         
     def rotateB(self):
         t = time.time()
         while (time.time() - t)<0.3:
            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                   if event.key == pygame.K_i:
-                       self.cube3D.rotate("counterClockwise","back")
-                       break        
+               if event.key == pygame.K_i:
+                   self.cube3D.rotate("counterClockwise","back")
+                   break        
         self.cube3D.rotate("clockwise","back")
                                       
     def project(self,points):
