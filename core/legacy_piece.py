@@ -11,7 +11,7 @@ class Piece(object):
 			try:
 				self.colors[side] = self.colors[side]
 			except KeyError:
-				self.colors[side] = (0, 0, 0)
+				self.colors[side] = 6
 
 	def rotate(self, orientation):
 		if orientation == "clockwise":

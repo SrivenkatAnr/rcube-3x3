@@ -1,7 +1,6 @@
 import pygame
 import pygame.locals as pylocals
 
-import threading
 import sys
 import random
 import time
@@ -32,12 +31,11 @@ gl.glTranslatef(0.0, 0.0, -8.0)
 
 #----------------------------------------------------------------------
 
-faces = {}
-side = ["top", "bottom", "left", "right", "front", "back"]
-colors = [(1, 1, 1), (1, 1, 0), (0, 1, 0), (0, 0, 1), (1, 0, 0), (1, 0.647, 0)]
+face_dict = {}
+side = ["top","left","front","back","right","bottom"]
 for i in range(6):
-	faces[side[i]] = np.array([[colors[i] for j in range(3)] for k in range(3)])
-cube = Cube3D(faces)
+	face_dict[side[i]] = np.array([[i for j in range(3)] for k in range(3)])
+cube = Cube3D(face_dict)
 
 def draw():
 	cube.render()

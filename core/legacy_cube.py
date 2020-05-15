@@ -32,10 +32,10 @@ class Cube(object):
 		raise Exception("Invalid face input")	
 
 	def updateCube(self,faces):
-		for face in faces.keys():
+		for key in faces.keys():
 			for i in range(3):
 				for j in range(3):
-					self.cube[self.slices[face]][i, j].addFace(face, faces[face][i, j])
+					self.cube[self.slices[key]][i, j].addFace(key, faces[key][i, j])
 		for layer in self.cube:
 			for row in layer:
 				for piece in row:
