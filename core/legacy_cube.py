@@ -61,6 +61,8 @@ class Cube(object):
 					piece.rotate(orientation)(side)
 		except KeyError:
 			pass
+		self.edgelist = self.returnEdges()
+		self.cornerlist = self.returnCorners()
 		return "rotated " + side + " " + orientation
 
 	def getFace(self, side):

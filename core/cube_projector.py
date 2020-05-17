@@ -14,20 +14,28 @@ import time
 pygame.init()
 
 colors = [(255, 255, 255), (255,128,0), (0,255,0), (0,0,255), (255,0,0), (255,255,0), (0, 0, 0)]
+T_DELAY = 0.3
 
-key_to_function = {
-    pygame.K_LEFT:   (lambda x: x.transformall(x.rotateYMatrix(-15))),
-    pygame.K_RIGHT:  (lambda x: x.transformall(x.rotateYMatrix(15))),
-    pygame.K_DOWN:   (lambda x: x.transformall(x.rotateXMatrix(+15))),
-    pygame.K_UP:     (lambda x: x.transformall(x.rotateXMatrix(-15))),
-    pygame.K_EQUALS: (lambda x: x.transformall(x.rotateZMatrix(+15))),
-    pygame.K_MINUS:  (lambda x: x.transformall(x.rotateZMatrix(-15))),
-    pygame.K_r: (lambda x: x.rotateR()),
-    pygame.K_l: (lambda x: x.rotateL()),
-    pygame.K_u: (lambda x: x.rotateU()),
-    pygame.K_f: (lambda x: x.rotateF()),
-    pygame.K_b: (lambda x: x.rotateB()),
-    pygame.K_d: (lambda x: x.rotateD()),}
+
+key_to_function = { pygame.K_LEFT:   (lambda x: x.transformall(x.rotateYMatrix(-15))),
+                    pygame.K_RIGHT:  (lambda x: x.transformall(x.rotateYMatrix(15))),
+                    pygame.K_DOWN:   (lambda x: x.transformall(x.rotateXMatrix(+15))),
+                    pygame.K_UP:     (lambda x: x.transformall(x.rotateXMatrix(-15))),
+                    pygame.K_EQUALS: (lambda x: x.transformall(x.rotateZMatrix(+15))),
+                    pygame.K_MINUS:  (lambda x: x.transformall(x.rotateZMatrix(-15)))}
+
+movements = {'r':("clockwise","right"),\
+             'l':("clockwise","left"),\
+             'u':("clockwise","top"),\
+             'f':("clockwise","front"),\
+             'b':("clockwise","back"),\
+             'd':("clockwise","bottom"),\
+             'ri':("counterClockwise","right"),\
+             'li':("counterClockwise","left"),\
+             'ui':("counterClockwise","top"),\
+             'fi':("counterClockwise","front"),\
+             'bi':("counterClockwise","back"),\
+             'di':("counterClockwise","bottom")}
 
 class cubeProjection:
 #Displays 3D objects on a Pygame screen
@@ -83,61 +91,7 @@ class cubeProjection:
         return np.array([[c,-s, 0],
                          [s, c, 0],
                          [0, 0, 1]])
-    
-    def rotateR(self):
-        t = time.time()
-        while (time.time() - t)<0.3:
-            for event in pygame.event.get():
-                if event.key == pygame.K_i:
-                    self.cube3D.rotate("counterClockwise","right")
-                    break        
-        self.cube3D.rotate("clockwise","right")
-
-    def rotateL(self):
-        t = time.time()
-        while (time.time() - t)<0.3:
-            for event in pygame.event.get():
-                if event.key == pygame.K_i:
-                   	self.cube3D.rotate("counterClockwise","left")
-                   	break
-        self.cube3D.rotate("clockwise","left")
-        
-    def rotateU(self):
-        t = time.time()
-        while (time.time() - t)<0.3:
-             for event in pygame.event.get():
-                 if event.key == pygame.K_i:
-                     self.cube3D.rotate("counterClockwise","top")
-                     break        
-        self.cube3D.rotate("clockwise","top")
-
-    def rotateD(self):
-        t = time.time()
-        while (time.time() - t)<0.3:
-            for event in pygame.event.get():
-                if event.key == pygame.K_i:
-                    self.cube3D.rotate("counterClockwise","bottom")
-                    break        
-        self.cube3D.rotate("clockwise","bottom")  
-        
-    def rotateF(self):
-        t = time.time()
-        while (time.time() - t)<0.3:
-             for event in pygame.event.get():
-                 if event.key == pygame.K_i:
-                     self.cube3D.rotate("counterClockwise","front")
-                     break        
-        self.cube3D.rotate("clockwise","front")
-        
-    def rotateB(self):
-        t = time.time()
-        while (time.time() - t)<0.3:
-           for event in pygame.event.get():
-               if event.key == pygame.K_i:
-                   self.cube3D.rotate("counterClockwise","back")
-                   break        
-        self.cube3D.rotate("clockwise","back")
-                                      
+                                  
     def project(self,points):
         new = []
         for pt in points:
@@ -187,6 +141,19 @@ class cubeProjection:
                 elif event.type == pygame.KEYDOWN:
                     if event.key in key_to_function:
                         key_to_function[event.key](self)
+                    else:
+                        cmd = pygame.key.name(event.key)
+                        t = time.time()
+                        while (time.time() - t)<T_DELAY:
+                            for event in pygame.event.get():
+                                if event.type == pygame.KEYDOWN:
+                                    cmd += pygame.key.name(event.key)
+                        try:
+                            args = movements[cmd]
+                            self.cube3D.rotate(*args)
+                            print(cmd)
+                        except:
+                            pass
                     
             self.updateall()
             self.screen.fill(self.background)
