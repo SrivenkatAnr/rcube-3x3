@@ -5,26 +5,44 @@ def R(cube):
     cube.rotate("clockwise","right")
 def Ri(cube):
     cube.rotate("counterClockwise","right")
+def R2(cube):
+    cube.rotate("clockwise","right")
+    cube.rotate("clockwise","right")
 def L(cube):
     cube.rotate("clockwise","left")
 def Li(cube):
     cube.rotate("counterClockwise","left")
+def L2(cube):
+    cube.rotate("clockwise","left")
+    cube.rotate("clockwise","left")
 def F(cube):
     cube.rotate("clockwise","front")
 def Fi(cube):
     cube.rotate("counterClockwise","front")
+def F2(cube):
+    cube.rotate("clockwise","front")
+    cube.rotate("clockwise","front")
 def B(cube):
     cube.rotate("clockwise","back")
 def Bi(cube):
     cube.rotate("counterClockwise","back")
+def B2(cube):
+    cube.rotate("clockwise","back")
+    cube.rotate("clockwise","back")
 def U(cube):
     cube.rotate("clockwise","top")
 def Ui(cube):
     cube.rotate("counterClockwise","top")
+def U2(cube):
+    cube.rotate("clockwise","top")
+    cube.rotate("clockwise","top")
 def D(cube):
     cube.rotate("clockwise","bottom")
 def Di(cube):
     cube.rotate("counterClockwise","bottom")
+def D2(cube):
+    cube.rotate("clockwise","bottom")
+    cube.rotate("clockwise","bottom")
 
 faces = []
 for i in range(6):
@@ -89,7 +107,7 @@ def yellowInLayer1(cube):
     for piece in wrong_pieces:
         #print("moved")
         if piece[1] == 8:
-            F(cube); F(cube)
+            F(cube); F(cube);
         elif piece[1] == 9:
             R(cube); R(cube)
         elif piece[1] == 10:
@@ -107,12 +125,8 @@ def yellowInLayer1(cube):
         return
 
 
-def yellowInLayer3(cube):
-    pass
-
-
 def yellowInLayer2(cube):
-    print("entered 2")
+   # print("entered 2")
     rot_dict = {(0,4):lambda x:L(x), (1,4):lambda x:Fi(x),\
                 (0,5):lambda x:B(x), (1,5):lambda x:Li(x),\
                 (0,6):lambda x:R(x), (1,6):lambda x:Bi(x),\
@@ -127,42 +141,72 @@ def yellowInLayer2(cube):
     try:
         piece = layer2[0]
     except:
-        print("done with layer2",len(layer2))
+        #print("done with layer2",len(layer2))
         return
     cmd = (piece[0].index(5),piece[1])
-    piece[0].remove(5); col = piece[0][0]
+    piece[0].remove(5); color = piece[0][0]
     for i in range(4):
         D(cube)
         base = np.rot90(base,1)
         ij = pos_dict[cmd]
-        if base[ij[0]][ij[1]] == col:
+        if base[ij[0]][ij[1]] == color:
             break
     rot_dict[cmd](cube)
-    print("moved in 2")
+    #print("moved in 2")
     yellowInLayer1(cube)
-    print("returned from 1")
-    print(getYellowEdges(cube)[4])
+    #print("returned from 1")
+    #print(getYellowEdges(cube)[4])
     yellowInLayer2(cube)
 
 
+def yellowInLayer3(cube):
+    #print("entered 3")
+    layer3 = getYellowEdges(cube)[3]
+    if len(layer3) == 0:
+        #print("done with layer3",len(layer3))
+        return
+    rot_dict = {0:lambda x:F(x),\
+                1:lambda x:L(x),\
+                2:lambda x:B(x),\
+                3:lambda x:R(x)}
+    pos_dict = {0:(1,1), 1:(1,0), 2:(0,0), 3:(0,1)}
+    piece = layer3[0]
+    base = np.array([[3,4],[1,2]])
+    top_flag = not piece[0].index(5)
+    piece[0].remove(5); color = piece[0][0]
+    pos = piece[1]
+    for i in range(4):
+        D(cube)
+        base = np.rot90(base,1)
+        j = pos_dict[pos]
+        if base[j[0]][j[1]] == color:
+            break
+    rot_dict[pos](cube)
+    #print("moved in 3",i)
+    if top_flag:
+        rot_dict[pos](cube)
+    yellowInLayer1(cube)
+    yellowInLayer2(cube)
+    #print(getYellowEdges(cube)[0])
+    yellowInLayer3(cube)
 
-while False:
+print(getYellowEdges(cube)[0])
+
+while True:
     yellow,layer1,layer2,layer3,crct = getYellowEdges(cube)
-    print(yellow)
     if crct == 4:
+        print(yellow)
         break
-    elif len(layer1)>crct:
+    if len(layer1)>crct:
         yellowInLayer1(cube)
         #yellow,layer1,layer2,layer3,crct = getYellowEdges(cube)
         #print("in layer1")
-        break
-    elif len(layer3) > 0:
-        yellowInLayer3(cube)
-        #yellow,layer1,layer2,layer3,crct = getYellowEdges(cube)
-        #print("in layer3")
-        break
-    else:
+    if len(layer2) > 0:
         yellowInLayer2(cube)
         #yellow,layer1,layer2,layer3,crct = getYellowEdges(cube)
+        #print("in layer3")
+    if len(layer3) > 0:
+        yellowInLayer3(cube)
+        #yellow,layer1,layer2,layer3,crct = getYellowEdges(cube)
         #print("in layer2")
-        break
+        continue
