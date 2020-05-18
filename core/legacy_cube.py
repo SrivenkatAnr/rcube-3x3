@@ -154,7 +154,7 @@ class CubeClass(object):
 		#white series clockwise, viewed from top:  green-orange to red-green
 		for ind in top_ind:
 			cornerlist.append([ mat[0][ind[0]][ind[1]], mat[ind[2]][0][0], mat[ind[3]][0][2] ])
-		#white series clockwise, viewed from top:  green-orange to red-green
+		#yellow series clockwise, viewed from bottom:  orange-green to blue-orange
 		for ind in bot_ind:
 			cornerlist.append([ mat[5][ind[0]][ind[1]], mat[ind[2]][2][2], mat[ind[3]][2][0] ])
 		return cornerlist

@@ -4,42 +4,43 @@ from .cube_sim import Cube
 class cubeCross(Cube):
 	def __init__(self,faces):
 		super().__init__(faces)
-		self.finalBottom = [ [[5,2],8], [[5,4],9], [[5,3],10], [[5,1],11] ]
+		self.finalEdges = [ [[5,2],8], [[5,4],9], [[5,3],10], [[5,1],11] ]
 
 	def getCrossEdges(self):
 	    edges = self.edgelist
-	    crossEdges = []
+	    yellowEdges = []
 	    layer1 = []
 	    layer2 = []
 	    layer3 = []
 	    for i in range(len(edges)):
 	        edge = edges[i]
 	        if 5 in edge:
-	            crossEdges.append([edge,i])
+	            yellowEdges.append([edge,i])
 	            if i>7:
 	                layer1.append([edge,i])
 	            elif i>3:
 	                layer2.append([edge,i])
 	            else:
 	                layer3.append([edge,i])
-	    crct = self.checkBottom(crossEdges)
-	    return crossEdges,layer1,layer2,layer3,crct
+	    crct = self.checkBottom(yellowEdges)
+	    return yellowEdges,layer1,layer2,layer3,crct
 
 	def checkBottom(self,layer):
 	    crct = 0
-	    for edge in self.finalBottom:
+	    for edge in self.finalEdges:
 	        if edge in layer:
 	            crct += 1
 	    return crct
 
 	def solveCrossLayer1(self):
+		#rotates bottom till max crct. pushes all wrong pieces except one to top. slots that optional piece in roght position
 	    for i in range(4):
 	        self.D()
 	        layer1 = self.getCrossEdges()[1]
 	        crct = self.getCrossEdges()[4]
 	        if len(layer1) == crct:
 	            return
-	    wrong_pieces = [piece for piece in layer1 if piece not in self.finalBottom]
+	    wrong_pieces = [piece for piece in layer1 if piece not in self.finalEdges]
 	    p = None
 	    if crct == 0:
 	        for piece in wrong_pieces:
@@ -50,7 +51,6 @@ class cubeCross(Cube):
 	        except:
 	            pass
 	    for piece in wrong_pieces:
-	        #print("moved")
 	        if piece[1] == 8:
 	            self.F2()
 	        elif piece[1] == 9:
@@ -70,7 +70,7 @@ class cubeCross(Cube):
 	        return
 
 	def solveCrossLayer2(self):
-	   # print("entered 2")
+		#slots all pieces in the mid layer into corresponding positions of the cross
 	    index = [(0,4),(1,4),(0,5),(1,5),(0,6),(1,6),(0,7),(1,7)]
 	    rotations = [lambda x:x.L(), lambda x:x.Fi(),\
 	    			 lambda x:x.B(), lambda x:x.Li(),\
@@ -85,27 +85,23 @@ class cubeCross(Cube):
 	    try:
 	        piece = layer2[0]
 	    except:
-	        #print("done with layer2",len(layer2))
 	        return
 	    cmd = (piece[0].index(5),piece[1])
 	    piece[0].remove(5); color = piece[0][0]
 	    for i in range(4):
 	        self.D()
 	        base = np.rot90(base,1)
-	        ij = pos_dict[cmd]
-	        if base[ij[0]][ij[1]] == color:
+	        pos = pos_dict[cmd]
+	        if base[pos[0]][pos[1]] == color:
 	            break
 	    rot_dict[cmd](self)
-	    #print("moved in 2")
 	    self.solveCrossLayer1()
-	    #print("returned from 1")
 	    self.solveCrossLayer2()
 
 	def solveCrossLayer3(self):
-	    #print("entered 3")
+		#tries to directly slot pieces in top into the cross. if not possible, pushes them to middle layer
 		layer3 = self.getCrossEdges()[3]
 		if len(layer3) == 0:
-	        #print("done with layer3",len(layer3))
 			return
 		index = [0,1,2,3]
 		rotations = [lambda x:x.F(), lambda x:x.L(), lambda x:x.B(), lambda x:x.R()]
@@ -125,7 +121,6 @@ class cubeCross(Cube):
 			if base[j[0]][j[1]] == color:
 				break
 		rot_dict[pos](self)
-	    #print("moved in 3",i)
 		if top_flag:
 			rot_dict[pos](self)
 		self.solveCrossLayer1()
@@ -134,9 +129,9 @@ class cubeCross(Cube):
 
 	def runCrossSolver(self):
 		while True:
-		    crossEdges,layer1,layer2,layer3,crct = self.getCrossEdges()
+		    yellowEdges,layer1,layer2,layer3,crct = self.getCrossEdges()
 		    if crct == 4:
-		        print(crossEdges)
+		        print(yellowEdges)
 		        break
 		    if len(layer1)>crct:
 		        self.solveCrossLayer1()
