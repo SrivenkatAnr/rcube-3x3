@@ -1,4 +1,4 @@
-from .legacy_cube import Cube
+from .cube_sim import Cube
 
 class cubeTracker(Cube):
 	def __init__(self,faces):

@@ -1,7 +1,7 @@
 import numpy as np
-from .cube_sim import CubeSim
+from .cube_sim import Cube
 
-class cubeCross(CubeSim):
+class cubeCross(Cube):
 	def __init__(self,faces):
 		super().__init__(faces)
 		self.finalBottom = [ [[5,2],8], [[5,4],9], [[5,3],10], [[5,1],11] ]

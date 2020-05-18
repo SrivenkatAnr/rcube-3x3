@@ -1,5 +1,5 @@
 import numpy as np
-from .legacy_cube import Cube
+from .cube_sim import Cube
 
 class Cube3D(Cube):
 	"""Cube class with the 3d functions"""

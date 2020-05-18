@@ -2,7 +2,7 @@ import numpy as np
 from .piece_3d import Piece3D
 import collections
 
-class Cube(object):
+class CubeClass(object):
 	"""Cube contains methods for rotations"""
 	def __init__(self, faces):
 		self.cube = np.array([Piece3D() for i in range(27)]).reshape((3, 3, 3))
