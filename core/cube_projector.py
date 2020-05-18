@@ -1,10 +1,3 @@
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
-"""
-Created on Sun May  3 18:40:28 2020
-
-@author: srivenkat
-"""
 import pygame
 import numpy as np
 from .cube_sim import Cube
