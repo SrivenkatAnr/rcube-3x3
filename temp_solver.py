@@ -1,9 +1,9 @@
 import numpy as np
-from core.cross_solve import cubeCross
+from core.cross_solver import cubeCross
 
 faces = []
 for i in range(6):
-    side = np.loadtxt("matrices/scrambled-3/side{}.txt".format(i))
+    side = np.loadtxt("matrices/test-temp/side{}.txt".format(i))
     faces.append(np.uint8(side))
 
 faces = sorted(faces,key=lambda b:b[1][1],reverse=False)

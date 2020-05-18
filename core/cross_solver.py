@@ -1,12 +1,12 @@
 import numpy as np
 from .cube_sim import Cube
 
-class cubeCross(Cube):
+class crossSolver(Cube):
 	def __init__(self,faces):
 		super().__init__(faces)
 		self.finalEdges = [ [[5,2],8], [[5,4],9], [[5,3],10], [[5,1],11] ]
 
-	def getCrossEdges(self):
+	def getLayer1Edges(self):
 	    edges = self.edgelist
 	    yellowEdges = []
 	    layer1 = []
@@ -22,10 +22,10 @@ class cubeCross(Cube):
 	                layer2.append([edge,i])
 	            else:
 	                layer3.append([edge,i])
-	    crct = self.checkBottom(yellowEdges)
+	    crct = self.checkBottomEdges(yellowEdges)
 	    return yellowEdges,layer1,layer2,layer3,crct
 
-	def checkBottom(self,layer):
+	def checkBottomEdges(self,layer):
 	    crct = 0
 	    for edge in self.finalEdges:
 	        if edge in layer:
@@ -36,8 +36,8 @@ class cubeCross(Cube):
 		#rotates bottom till max crct. pushes all wrong pieces except one to top. slots that optional piece in roght position
 	    for i in range(4):
 	        self.D()
-	        layer1 = self.getCrossEdges()[1]
-	        crct = self.getCrossEdges()[4]
+	        layer1 = self.getLayer1Edges()[1]
+	        crct = self.getLayer1Edges()[4]
 	        if len(layer1) == crct:
 	            return
 	    wrong_pieces = [piece for piece in layer1 if piece not in self.finalEdges]
@@ -64,7 +64,7 @@ class cubeCross(Cube):
 	    if p is not None:
 	        for i in range(4):
 	            self.D()
-	            if self.getCrossEdges()[4]:
+	            if self.getLayer1Edges()[4]:
 	                return
 	    else:
 	        return
@@ -81,7 +81,7 @@ class cubeCross(Cube):
 	    pos_dict = dict(zip(index,positions))
 	    base = np.array([[3,4],[1,2]])
 	    
-	    layer1,layer2 = self.getCrossEdges()[1:3]
+	    layer1,layer2 = self.getLayer1Edges()[1:3]
 	    try:
 	        piece = layer2[0]
 	    except:
@@ -100,7 +100,7 @@ class cubeCross(Cube):
 
 	def solveCrossLayer3(self):
 		#tries to directly slot pieces in top into the cross. if not possible, pushes them to middle layer
-		layer3 = self.getCrossEdges()[3]
+		layer3 = self.getLayer1Edges()[3]
 		if len(layer3) == 0:
 			return
 		index = [0,1,2,3]
@@ -129,9 +129,9 @@ class cubeCross(Cube):
 
 	def runCrossSolver(self):
 		while True:
-		    yellowEdges,layer1,layer2,layer3,crct = self.getCrossEdges()
+		    yellowEdges,layer1,layer2,layer3,crct = self.getLayer1Edges()
 		    if crct == 4:
-		        print(yellowEdges)
+		        print("Solved Edges: ",yellowEdges)
 		        break
 		    if len(layer1)>crct:
 		        self.solveCrossLayer1()

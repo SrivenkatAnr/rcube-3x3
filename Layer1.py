@@ -1,5 +1,5 @@
 import numpy as np
-from core.cross_solve import cubeCross
+from core.layer1_solver import layer1Solver
 
 faces = []
 for i in range(6):
@@ -13,6 +13,7 @@ side = ["top","left","front","back","right","bottom"]
 for i in range(6):
     face_dict[side[i]] = faces[i]
 
-cube = cubeCross(face_dict)
-print(cube.getCrossEdges()[0])
-cube.runCrossSolver()
+cube = layer1Solver(face_dict)
+print("Initial Edges: ",cube.getLayer1Edges()[0])
+print("Initial Corners: ",cube.getLayer1Corners()[0])
+cube.runLayer1Solver()
