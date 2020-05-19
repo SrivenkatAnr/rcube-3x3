@@ -42,7 +42,7 @@ class layer1Solver(crossSolver):
                 return
         raise Exception("Cross lost")
 
-    def switchTopCorner(self):
+    def rotYellowCornerTop(self):
         #converts all the top pieces into top_front pieces
         piece = self.getYellowCorners()[1][0]
         sort_order = {1:0, 2:1, 4:2, 3:3}
@@ -68,9 +68,10 @@ class layer1Solver(crossSolver):
         func[0](self)
         self.Ui()
         func[1](self)
-        self.solveCornersTop()
+        self.YellowCornersTop()
+        return
 
-    def solveCornersTop(self):
+    def YellowCornersTop(self):
         #slots all the top front pieces recursively
         self.getCrossBack()
         if self.getYellowCorners()[4] == 4:
@@ -110,13 +111,14 @@ class layer1Solver(crossSolver):
             func[0](self)
             ufunc_dict[left_flag][1](self)
             func[1](self)
-            self.solveCornersTop()
-
+            self.YellowCornersTop()
+            return
         except IndexError:
-            self.switchTopCorner()
+            self.rotYellowCornerTop()
+            return
 
 
-    def solveCornersBottom(self):
+    def YellowCornersBottom(self):
         #pushes all wrongly slotted pieces to top layer
         if self.getYellowCorners()[4] == 4:
             return
@@ -140,13 +142,12 @@ class layer1Solver(crossSolver):
         return
 
     def runLayer1Solver(self):
-        self.runCrossSolver()
-        
+        self.runCrossSolver()        
         while True:
             yellowCorners,top,top_front,bottom,crct = self.getYellowCorners()
             if crct == 4:
-                print("Solved Layer 1")
                 break
-            self.solveCornersTop()
-            self.solveCornersBottom()
-        #self.compressAlgo()
+            self.YellowCornersTop()
+            self.YellowCornersBottom()
+        self.compressAlgo()
+        return

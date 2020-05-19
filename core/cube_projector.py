@@ -142,7 +142,7 @@ class cubeProjection:
                                 if event.type == pygame.KEYDOWN:
                                     cmd += pygame.key.name(event.key)
                         try:
-                            print(self.cube3D.rotations[cmd](self.cube3D))
+                            print(self.cube3D.rotation_dict[cmd](self.cube3D))
                         except:
                             pass
                     

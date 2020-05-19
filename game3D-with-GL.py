@@ -53,7 +53,7 @@ def draw():
 
 def scrambler():
 	keys = list(cube.rotations3D_dict.keys())
-	print("scrambe = ", end = ' ')
+	print("scramble = ", end = ' ')
 	for i in range(20):
 		ind = random.randrange(12)
 		rot = keys[ind]

@@ -97,6 +97,7 @@ class crossSolver(Cube):
 	    rot_dict[cmd](self)
 	    self.solveCrossLayer1()
 	    self.solveCrossLayer2()
+	    return
 
 	def solveCrossLayer3(self):
 		#tries to directly slot pieces in top into the cross. if not possible, pushes them to middle layer
@@ -126,12 +127,12 @@ class crossSolver(Cube):
 		self.solveCrossLayer1()
 		self.solveCrossLayer2()
 		self.solveCrossLayer3()
+		return
 
 	def runCrossSolver(self):
 		while True:
 		    yellowEdges,layer1,layer2,layer3,crct = self.getYellowEdges()
 		    if crct == 4:
-		        print("Solved Cross")
 		        break
 		    if len(layer1)>crct:
 		        self.solveCrossLayer1()
@@ -143,4 +144,5 @@ class crossSolver(Cube):
 		        self.solveCrossLayer3()
 		        #print("in layer2")
 		        continue
-		#self.compressAlgo()
+		self.compressAlgo()
+		return

@@ -121,7 +121,7 @@ class Cube(CubeClass):
 
 	def compressAlgo(self):
 		#print("in compression stage")
-		if len(self.algo)<3:
+		if len(self.algo)<4:
 			return
 
 		algo = self.algo
@@ -142,7 +142,7 @@ class Cube(CubeClass):
 		            del algo[i]; del algo[i]; algo[i] = inv[algo[i]]
 		            #print("del 1 set",len(algo),i)
 		            break
-		    if (i == len(algo)-4) or (len(algo)<3):
+		    if (i == len(algo)-4) or (len(algo)<4):
 		        flag = False
 
 		self.algo = algo

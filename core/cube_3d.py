@@ -72,5 +72,6 @@ class Cube3D(Cube):
 
 		solver = layer1Solver(face_dict)
 		solver.runLayer1Solver()
-		solver.compressAlgo()
+		print("Solved Layer1")
+		#solver.compressAlgo()
 		return solver.algo
