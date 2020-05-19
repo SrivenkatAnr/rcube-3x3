@@ -1,5 +1,5 @@
 import numpy as np
-from core.layer1_solver import layer1Solver
+from core.layer2_solver import layer2Solver
 
 faces = []
 for i in range(6):
@@ -13,7 +13,7 @@ side = ["top","left","front","back","right","bottom"]
 for i in range(6):
     face_dict[side[i]] = faces[i]
 
-cube = layer1Solver(face_dict)
+cube = layer2Solver(face_dict)
 print("Initial Edges: ",cube.getYellowEdges()[0])
 print("Initial Corners: ",cube.getYellowCorners()[0])
-cube.runLayer1Solver()
+cube.runLayer2Solver()
