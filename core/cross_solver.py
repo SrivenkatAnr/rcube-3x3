@@ -6,7 +6,7 @@ class crossSolver(Cube):
 		super().__init__(faces)
 		self.finalEdges = [ [[5,2],8], [[5,4],9], [[5,3],10], [[5,1],11] ]
 
-	def getLayer1Edges(self):
+	def getYellowEdges(self):
 	    edges = self.edgelist
 	    yellowEdges = []
 	    layer1 = []
@@ -36,8 +36,8 @@ class crossSolver(Cube):
 		#rotates bottom till max crct. pushes all wrong pieces except one to top. slots that optional piece in roght position
 	    for i in range(4):
 	        self.D()
-	        layer1 = self.getLayer1Edges()[1]
-	        crct = self.getLayer1Edges()[4]
+	        layer1 = self.getYellowEdges()[1]
+	        crct = self.getYellowEdges()[4]
 	        if len(layer1) == crct:
 	            return
 	    wrong_pieces = [piece for piece in layer1 if piece not in self.finalEdges]
@@ -64,7 +64,7 @@ class crossSolver(Cube):
 	    if p is not None:
 	        for i in range(4):
 	            self.D()
-	            if self.getLayer1Edges()[4]:
+	            if self.getYellowEdges()[4]:
 	                return
 	    else:
 	        return
@@ -81,7 +81,7 @@ class crossSolver(Cube):
 	    pos_dict = dict(zip(index,positions))
 	    base = np.array([[3,4],[1,2]])
 	    
-	    layer1,layer2 = self.getLayer1Edges()[1:3]
+	    layer1,layer2 = self.getYellowEdges()[1:3]
 	    try:
 	        piece = layer2[0]
 	    except:
@@ -100,7 +100,7 @@ class crossSolver(Cube):
 
 	def solveCrossLayer3(self):
 		#tries to directly slot pieces in top into the cross. if not possible, pushes them to middle layer
-		layer3 = self.getLayer1Edges()[3]
+		layer3 = self.getYellowEdges()[3]
 		if len(layer3) == 0:
 			return
 		index = [0,1,2,3]
@@ -129,7 +129,7 @@ class crossSolver(Cube):
 
 	def runCrossSolver(self):
 		while True:
-		    yellowEdges,layer1,layer2,layer3,crct = self.getLayer1Edges()
+		    yellowEdges,layer1,layer2,layer3,crct = self.getYellowEdges()
 		    if crct == 4:
 		        print("Solved Edges: ",yellowEdges)
 		        break

@@ -16,3 +16,5 @@ for i in range(6):
 cube = layer1Solver(face_dict)
 cube.runLayer1Solver()
 
+algo = cube.algo
+

@@ -17,18 +17,18 @@ key_to_function = { pygame.K_LEFT:   (lambda x: x.transformall(x.rotateYMatrix(-
                     pygame.K_EQUALS: (lambda x: x.transformall(x.rotateZMatrix(+15))),
                     pygame.K_MINUS:  (lambda x: x.transformall(x.rotateZMatrix(-15)))}
 
-movements = {'r':("clockwise","right"),\
-             'l':("clockwise","left"),\
-             'u':("clockwise","top"),\
-             'f':("clockwise","front"),\
-             'b':("clockwise","back"),\
-             'd':("clockwise","bottom"),\
-             'ri':("counterClockwise","right"),\
-             'li':("counterClockwise","left"),\
-             'ui':("counterClockwise","top"),\
-             'fi':("counterClockwise","front"),\
-             'bi':("counterClockwise","back"),\
-             'di':("counterClockwise","bottom")}
+movements = {'r':lambda x:x.R(),\
+             'l':lambda x:x.L(),\
+             'u':lambda x:x.U(),\
+             'f':lambda x:x.F(),\
+             'b':lambda x:x.B(),\
+             'd':lambda x:x.D(),\
+             'ri':lambda x:x.Ri(),\
+             'li':lambda x:x.Li(),\
+             'ui':lambda x:x.Ui(),\
+             'fi':lambda x:x.Fi(),\
+             'bi':lambda x:x.Bi(),\
+             'di':lambda x:x.Di()}
 
 class cubeProjection:
 #Displays 3D objects on a Pygame screen
@@ -142,9 +142,7 @@ class cubeProjection:
                                 if event.type == pygame.KEYDOWN:
                                     cmd += pygame.key.name(event.key)
                         try:
-                            args = movements[cmd]
-                            self.cube3D.rotate(*args)
-                            print(cmd)
+                            print(self.cube3D.rotations[cmd](self.cube3D))
                         except:
                             pass
                     

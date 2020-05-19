@@ -6,7 +6,7 @@ class layer1Solver(crossSolver):
         super().__init__(faces)
         self.finalCorners = [ [[5,1,2],4], [[5,2,4],5], [[5,4,3],6], [[5,3,1],7] ]
 
-    def getLayer1Corners(self):
+    def getYellowCorners(self):
         corners = self.cornerlist
         yellowCorners = []
         top = []
@@ -34,17 +34,17 @@ class layer1Solver(crossSolver):
         return crct
 
     def getCrossBack(self):
-        if self.getLayer1Edges()[4] == 4:
+        if self.getYellowEdges()[4] == 4:
             return
         for i in range(3):
             self.D()
-            if self.getLayer1Edges()[4] == 4:
+            if self.getYellowEdges()[4] == 4:
                 return
         raise Exception("Cross lost")
 
     def switchTopCorner(self):
         #converts all the top pieces into top_front pieces
-        piece = self.getLayer1Corners()[1][0]
+        piece = self.getYellowCorners()[1][0]
         sort_order = {1:0, 2:1, 4:2, 3:3}
         colors = tuple(sorted(piece[0][1:], key=lambda x:sort_order[x]))
         if colors == (1,3):
@@ -68,14 +68,14 @@ class layer1Solver(crossSolver):
         func[0](self)
         self.Ui()
         func[1](self)
-        self.solveTopCorners()
+        self.solveCornersTop()
 
-    def solveTopCorners(self):
+    def solveCornersTop(self):
         #slots all the top front pieces recursively
         self.getCrossBack()
-        if self.getLayer1Corners()[4] == 4:
+        if self.getYellowCorners()[4] == 4:
             return
-        top,top_front = self.getLayer1Corners()[1:3]
+        top,top_front = self.getYellowCorners()[1:3]
         if len(top)+len(top_front) == 0:
             return 
         try:
@@ -110,17 +110,17 @@ class layer1Solver(crossSolver):
             func[0](self)
             ufunc_dict[left_flag][1](self)
             func[1](self)
-            self.solveTopCorners()
+            self.solveCornersTop()
 
         except IndexError:
             self.switchTopCorner()
 
 
-    def solveBottomCorners(self):
+    def solveCornersBottom(self):
         #pushes all wrongly slotted pieces to top layer
-        if self.getLayer1Corners()[4] == 4:
+        if self.getYellowCorners()[4] == 4:
             return
-        wrong_pieces = [piece for piece in self.getLayer1Corners()[3] if piece not in self.finalCorners]
+        wrong_pieces = [piece for piece in self.getYellowCorners()[3] if piece not in self.finalCorners]
         pos_dict = {4:0, 5:3, 6:2, 7:1}
         func_dict = {4:[lambda x:x.F(), lambda x:x.Fi()],\
                      5:[lambda x:x.R(), lambda x:x.Ri()],\
@@ -130,7 +130,7 @@ class layer1Solver(crossSolver):
         for piece in wrong_pieces:
             pos = piece[1]
             for i in range(4):
-                top,top_front = self.getLayer1Corners()[1:3]
+                top,top_front = self.getYellowCorners()[1:3]
                 top_total = top + top_front
                 if all(t[1]!=pos_dict[pos] for t in top_total):
                     break
@@ -143,9 +143,9 @@ class layer1Solver(crossSolver):
         self.runCrossSolver()
         
         while True:
-            yellowCorners,top,top_front,bottom,crct = self.getLayer1Corners()
+            yellowCorners,top,top_front,bottom,crct = self.getYellowCorners()
             if crct == 4:
                 print("Solved Corners: ",yellowCorners)
                 return
-            self.solveTopCorners()
-            self.solveBottomCorners()
+            self.solveCornersTop()
+            self.solveCornersBottom()

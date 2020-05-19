@@ -1,6 +1,7 @@
 import pygame
 import pygame.locals as pylocals
 
+import threading
 import sys
 import random
 import time
@@ -31,27 +32,65 @@ gl.glTranslatef(0.0, 0.0, -8.0)
 
 #----------------------------------------------------------------------
 
+faces = []
+for i in range(6):
+    side = np.loadtxt("matrices/solved/side{}.txt".format(i))
+    faces.append(np.uint8(side))
+
+faces = sorted(faces,key=lambda b:b[1][1],reverse=False)
+
 face_dict = {}
 side = ["top","left","front","back","right","bottom"]
 for i in range(6):
-	face_dict[side[i]] = np.array([[i for j in range(3)] for k in range(3)])
+    face_dict[side[i]] = faces[i]
+
 cube = Cube3D(face_dict)
 
 def draw():
 	cube.render()
 
-movements = {'r':("clockwise","right"),\
-			 'l':("clockwise","left"),\
-			 'u':("clockwise","top"),\
-			 'f':("clockwise","front"),\
-			 'b':("clockwise","back"),\
-			 'd':("clockwise","bottom"),\
-			 'ri':("counterClockwise","right"),\
-			 'li':("counterClockwise","left"),\
-			 'ui':("counterClockwise","top"),\
-			 'fi':("counterClockwise","front"),\
-			 'bi':("counterClockwise","back"),\
-			 'di':("counterClockwise","bottom")}
+#----------------------------------------------------------------------
+
+def scrambler():
+	keys = list(cube.rotations3D_dict.keys())
+	print("scrambe = ", end = ' ')
+	for i in range(20):
+		ind = random.randrange(12)
+		rot = keys[ind]
+		print(rot, end=' ')
+		cube.rotations3D_dict[rot](cube)
+		time.sleep(0.2)
+
+def solver():
+	algo = cube.solve()
+	for rot in algo:
+		cube.rotations3D_dict[rot](cube)
+		time.sleep(0.2)
+
+def terminal():
+	global done
+	buff = ""
+	print("Enter the rotation key in lowercase, eg, \"ri\" \nEnter \"scramble\" for scrambling \nEnter \"solve\" for solving \nEnter \"exit\" to exit")
+	while not done:
+		print(buff)
+		command = input("\n>>> ")
+
+		if command == "exit":
+			done = True
+		elif command == "scramble":
+			scrambler()
+		elif command in cube.rotations3D_dict.keys():
+			cube.rotations3D_dict[command](cube)
+		elif command == "solve":
+			solver()
+		else:
+			pass
+
+try:
+	thread = threading.Thread(target=terminal)
+	thread.start()
+except:
+	print("Error: unable to start thread")
 
 while not done:
 	gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
@@ -59,20 +98,6 @@ while not done:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			done = True	
-		if event.type == pygame.KEYDOWN:
-			cmd = pygame.key.name(event.key)
-			t = time.time()
-			while (time.time() - t)<T_DELAY:
-				for event in pygame.event.get():
-					if event.type == pygame.KEYDOWN:
-						cmd += pygame.key.name(event.key)
-			try:
-				args = movements[cmd]
-				cube.rotate3D(*args)
-				print(cmd)
-			except:
-				pass
-
 	draw()
 	pygame.display.flip()
 	clock.tick(FRAME_RATE)

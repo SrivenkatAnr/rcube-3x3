@@ -14,6 +14,6 @@ for i in range(6):
     face_dict[side[i]] = faces[i]
 
 cube = layer1Solver(face_dict)
-print("Initial Edges: ",cube.getLayer1Edges()[0])
-print("Initial Corners: ",cube.getLayer1Corners()[0])
+print("Initial Edges: ",cube.getYellowEdges()[0])
+print("Initial Corners: ",cube.getYellowCorners()[0])
 cube.runLayer1Solver()
