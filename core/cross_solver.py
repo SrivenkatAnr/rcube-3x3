@@ -131,7 +131,7 @@ class crossSolver(Cube):
 		while True:
 		    yellowEdges,layer1,layer2,layer3,crct = self.getYellowEdges()
 		    if crct == 4:
-		        print("Solved Edges: ",yellowEdges)
+		        print("Solved Cross")
 		        break
 		    if len(layer1)>crct:
 		        self.solveCrossLayer1()
@@ -143,3 +143,4 @@ class crossSolver(Cube):
 		        self.solveCrossLayer3()
 		        #print("in layer2")
 		        continue
+		#self.compressAlgo()

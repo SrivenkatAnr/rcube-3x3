@@ -120,5 +120,29 @@ class Cube(CubeClass):
 		return 'D2'
 
 	def compressAlgo(self):
-		algo = self.algo
+		#print("in compression stage")
+		if len(self.algo)<3:
+			return
 
+		algo = self.algo
+		inv = { 'r':'ri', 'ri':'r', 'l':'li', 'li':'l', 'u':'ui', 'ui':'u',\
+		        'f':'fi', 'fi':'f', 'b':'bi', 'bi':'b', 'd':'di', 'di':'d', }
+		flag = True
+		while flag:
+		    for i in range(len(algo)-3):
+		        if algo[i] == algo[i+1] == algo[i+2] == algo[i+3]:
+		            del algo[i]; del algo[i]; del algo[i]; del algo[i]
+		            #print("del 1 set",len(algo),i)
+		            break
+		        if algo[i] == inv[algo[i+1]]:
+		            del algo[i]; del algo[i]
+		            #print("del 1 set",len(algo),i)
+		            break
+		        if algo[i] == algo[i+1] == algo[i+2]:
+		            del algo[i]; del algo[i]; algo[i] = inv[algo[i]]
+		            #print("del 1 set",len(algo),i)
+		            break
+		    if (i == len(algo)-4) or (len(algo)<3):
+		        flag = False
+
+		self.algo = algo

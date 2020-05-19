@@ -145,7 +145,8 @@ class layer1Solver(crossSolver):
         while True:
             yellowCorners,top,top_front,bottom,crct = self.getYellowCorners()
             if crct == 4:
-                print("Solved Corners: ",yellowCorners)
-                return
+                print("Solved Layer 1")
+                break
             self.solveCornersTop()
             self.solveCornersBottom()
+        #self.compressAlgo()
