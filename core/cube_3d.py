@@ -1,5 +1,10 @@
 import numpy as np
+<<<<<<< HEAD
 from .legacy_cube import Cube
+=======
+from .layer2_solver import layer2Solver
+from .cube_sim import Cube
+>>>>>>> cube-solver
 
 class Cube3D(Cube):
 	"""Cube class with the 3d functions"""
@@ -10,6 +15,21 @@ class Cube3D(Cube):
 		self.rotatingOrientation = ""
 		self.positions = np.array([[[[-j, k, -i] for i in range(-1, 2)] for j in range(-1, 2)] for k in range(-1, 2)], dtype = np.float64)
 		self.angle = 0
+<<<<<<< HEAD
+=======
+		self.rotations3D_dict = {'r':lambda x: x.rotate3D("clockwise","right"),\
+								'l':lambda x: x.rotate3D("clockwise","left"),\
+			 					'u':lambda x: x.rotate3D("clockwise","top"),\
+			 					'f':lambda x: x.rotate3D("clockwise","front"),\
+			 					'b':lambda x: x.rotate3D("clockwise","back"),\
+			 					'd':lambda x: x.rotate3D("clockwise","bottom"),\
+								'ri':lambda x: x.rotate3D("counterClockwise","right"),\
+								'li':lambda x: x.rotate3D("counterClockwise","left"),\
+								'ui':lambda x: x.rotate3D("counterClockwise","top"),\
+								'fi':lambda x: x.rotate3D("counterClockwise","front"),\
+								'bi':lambda x: x.rotate3D("counterClockwise","back"),\
+								'di':lambda x: x.rotate3D("counterClockwise","bottom")}
+>>>>>>> cube-solver
 
 	def render(self):
 		positions = self.positions.copy()
@@ -48,3 +68,20 @@ class Cube3D(Cube):
 			self.rotatingOrientation = orientation
 			self.rotatingSide = side
 			self.inRotation = True
+<<<<<<< HEAD
+=======
+
+	def solve(self):
+		faces = self.return2DFaces()
+		faces = sorted(faces,key=lambda b:b[1][1],reverse=False)
+		face_dict = {}
+		side = ["top","left","front","back","right","bottom"]
+		for i in range(6):
+		    face_dict[side[i]] = faces[i]
+
+		solver = layer2Solver(face_dict)
+		solver.runLayer2Solver()
+		print("Solved till Layer2")
+		#solver.compressAlgo()
+		return solver.algo
+>>>>>>> cube-solver
