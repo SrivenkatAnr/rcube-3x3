@@ -11,11 +11,7 @@ class Piece(object):
 			try:
 				self.colors[side] = self.colors[side]
 			except KeyError:
-<<<<<<< HEAD:core/legacy_piece.py
-				self.colors[side] = (0, 0, 0)
-=======
 				self.colors[side] = 6
->>>>>>> cube-solver:core/legacy_piece.py
 
 	def rotate(self, orientation):
 		if orientation == "clockwise":

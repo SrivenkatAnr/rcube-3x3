@@ -32,14 +32,6 @@ gl.glTranslatef(0.0, 0.0, -8.0)
 
 #----------------------------------------------------------------------
 
-<<<<<<< HEAD
-faces = {}
-side = ["top", "bottom", "left", "right", "front", "back"]
-colors = [(1, 1, 1), (1, 1, 0), (0, 1, 0), (0, 0, 1), (1, 0, 0), (1, 0.647, 0)]
-for i in range(6):
-	faces[side[i]] = np.array([[colors[i] for j in range(3)] for k in range(3)])
-cube = Cube3D(faces)
-=======
 faces = []
 for i in range(6):
     side = np.loadtxt("matrices/solved/side{}.txt".format(i))
@@ -53,25 +45,10 @@ for i in range(6):
     face_dict[side[i]] = faces[i]
 
 cube = Cube3D(face_dict)
->>>>>>> cube-solver
 
 def draw():
 	cube.render()
 
-<<<<<<< HEAD
-movements = {'r':("clockwise","right"),\
-			'l':("clockwise","left"),\
-			 'u':("clockwise","top"),\
-			 'f':("clockwise","front"),\
-			 'b':("clockwise","back"),\
-			 'd':("clockwise","bottom"),\
-			 'ri':("counterClockwise","right"),\
-			 'li':("counterClockwise","left"),\
-			 'ui':("counterClockwise","top"),\
-			 'fi':("counterClockwise","front"),\
-			 'bi':("counterClockwise","back"),\
-			 'di':("counterClockwise","bottom")}
-=======
 #----------------------------------------------------------------------
 
 def scrambler():
@@ -115,7 +92,6 @@ try:
 	thread.start()
 except:
 	print("Error: unable to start thread")
->>>>>>> cube-solver
 
 while not done:
 	gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
@@ -123,23 +99,6 @@ while not done:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			done = True	
-<<<<<<< HEAD
-		if event.type == pygame.KEYDOWN:
-			cmd = pygame.key.name(event.key)
-			t = time.time()
-			while (time.time() - t)<T_DELAY:
-				for event in pygame.event.get():
-					if event.type == pygame.KEYDOWN:
-						cmd += pygame.key.name(event.key)
-			try:
-				args = movements[cmd]
-				cube.rotate3D(*args)
-				print(cmd)
-			except:
-				pass
-
-=======
->>>>>>> cube-solver
 	draw()
 	pygame.display.flip()
 	clock.tick(FRAME_RATE)

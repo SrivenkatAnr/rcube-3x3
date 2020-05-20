@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
-=======
->>>>>>> cube-solver
 try:
     import cv2
 except:

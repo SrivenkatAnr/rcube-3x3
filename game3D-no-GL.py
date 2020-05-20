@@ -5,11 +5,7 @@ Created on Sun May  3 23:55:09 2020
 
 @author: srivenkat
 """
-<<<<<<< HEAD
-from core.cubeProjector import cubeProjection
-=======
 from core.cube_projector import cubeProjection
->>>>>>> cube-solver
 from core.wireframe import Wireframe
 import numpy as np
 
@@ -30,12 +26,9 @@ cp = cubeProjection(1000,1000)
 cp.addWireframe('cube3D',cube_frame)
 cp.run()
 
-<<<<<<< HEAD
-=======
 
 sides = cp.cube3D.return2DFaces()
 i=0
 for side in sides:
 	np.savetxt("matrices/test-temp/side{}.txt".format(i),side)
 	i+=1
->>>>>>> cube-solver
