@@ -9,36 +9,29 @@ xi = { "l":"l", "li":"li", "r":"r", "ri":"ri", "f":"u", "fi":"ui", "b":"d", "bi"
 z = { "l":"d", "li":"di", "r":"u", "ri":"ui", "f":"f", "fi":"fi", "b":"b", "bi":"bi", "u":"l","ui":"li", "d":"r", "di":"ri" }
 zi = { "l":"u", "li":"ui", "r":"d", "ri":"di", "f":"f", "fi":"fi", "b":"b", "bi":"bi", "u":"r","ui":"ri", "d":"l", "di":"li" }
 
-mat = np.array([[0, 0,0,0, 0],\
-
-                [0, 1,1,1, 0],\
-                [0, 1,1,1, 0],\
-                [0, 1,1,1, 0],\
-
-                [0, 0,0,0, 0]],np.uint8)
+mat = np.array([],np.uint8)
 
 
 algo = np.array([])
-
-file = 'OLL/solved.npz'
+file = 'PLL/solved.npz'
 
 np.savez(file,mat,algo)
 
 
-"""
-cross: 1234567
-line: 1234
-dot: 12345678
-4corners: 12
-shapeLi: 123456
-shapeL: 123456
-shape7: 1234
-shape7i: 1234
-C: 12
-L: 1234
-P: 1234
-T: 12
-W: 12
-Z: 12
-"""
+temp = [[ 1,  2,  3 ],\
 
+		[ 4,  5,  6 ],\
+
+		[ 7,  8,  9 ]]
+
+"""
+A: 1,2
+U: 1,2
+H, T
+J: 1,2
+R: 1,2
+G: 1,2,3,4
+F, Z, Y
+N: 1,2
+E
+"""

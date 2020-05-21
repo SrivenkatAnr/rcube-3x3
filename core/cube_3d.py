@@ -71,7 +71,6 @@ class Cube3D(Cube):
 		    face_dict[side[i]] = faces[i]
 
 		solver = layer3Solver(face_dict)
-		solver.runOLLsolver()
-		print("Solved till Layer2")
-		#solver.compressAlgo()
+		solver.runCubeSolver()
+		solver.compressAlgo()
 		return solver.algo
