@@ -132,16 +132,16 @@ class Cube(CubeClass):
 		    for i in range(len(algo)-3):
 		        if algo[i] == algo[i+1] == algo[i+2] == algo[i+3]:
 		            del algo[i]; del algo[i]; del algo[i]; del algo[i]
-		            #print("del 1 set",len(algo),i)
 		            break
 		        if algo[i] == inv[algo[i+1]]:
 		            del algo[i]; del algo[i]
-		            #print("del 1 set",len(algo),i)
 		            break
 		        if algo[i] == algo[i+1] == algo[i+2]:
 		            del algo[i]; del algo[i]; algo[i] = inv[algo[i]]
-		            #print("del 1 set",len(algo),i)
 		            break
+		        if algo[i+1] == algo[i+2] == algo[i+3]:
+		        	del algo[i+1]; del algo[i+1]; algo[i+1] = inv[algo[i+1]]
+		        	break
 		    if (i == len(algo)-4) or (len(algo)<4):
 		        flag = False
 
