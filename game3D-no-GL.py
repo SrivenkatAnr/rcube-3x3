@@ -11,7 +11,7 @@ import numpy as np
 
 faces = []
 for i in range(6):
-	side = np.loadtxt("matrices/solved/side{}.txt".format(i))
+	side = np.loadtxt("matrices/test-temp/side{}.txt".format(i))
 	faces.append(np.uint8(side))
 
 faces = sorted(faces,key=lambda b:b[1][1],reverse=False)
@@ -26,9 +26,10 @@ cp = cubeProjection(1000,1000)
 cp.addWireframe('cube3D',cube_frame)
 cp.run()
 
-
+"""
 sides = cp.cube3D.return2DFaces()
 i=0
 for side in sides:
 	np.savetxt("matrices/test-temp/side{}.txt".format(i),side)
 	i+=1
+"""

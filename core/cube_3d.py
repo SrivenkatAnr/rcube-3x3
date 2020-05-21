@@ -1,5 +1,5 @@
 import numpy as np
-from .layer2_solver import layer2Solver
+from .layer3_solver import layer3Solver
 from .cube_sim import Cube
 
 class Cube3D(Cube):
@@ -70,8 +70,8 @@ class Cube3D(Cube):
 		for i in range(6):
 		    face_dict[side[i]] = faces[i]
 
-		solver = layer2Solver(face_dict)
-		solver.runLayer2Solver()
+		solver = layer3Solver(face_dict)
+		solver.runOLLsolver()
 		print("Solved till Layer2")
 		#solver.compressAlgo()
 		return solver.algo
