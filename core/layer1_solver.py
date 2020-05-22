@@ -6,16 +6,16 @@ class layer1Solver(crossSolver):
         super().__init__(faces)
         self.finalCorners = [ [[5,1,2],4], [[5,2,4],5], [[5,4,3],6], [[5,3,1],7] ]
 
-    def getYellowCorners(self):
+    def getWhiteCorners(self):
         corners = self.cornerlist
-        yellowCorners = []
+        WhiteCorners = []
         top = []
         top_front = []
         bottom = []
         for i in range(len(corners)):
             corner = corners[i]
             if 5 in corner:
-                yellowCorners.append([corner,i])
+                WhiteCorners.append([corner,i])
                 if i <= 3:
                     if corner.index(5):
                         top_front.append([corner,i])
@@ -23,8 +23,8 @@ class layer1Solver(crossSolver):
                         top.append([corner,i])
                 else:
                     bottom.append([corner,i])
-        crct = self.checkBottomCorners(yellowCorners)
-        return yellowCorners,top,top_front,bottom,crct
+        crct = self.checkBottomCorners(WhiteCorners)
+        return WhiteCorners,top,top_front,bottom,crct
 
     def checkBottomCorners(self,layer):
         crct = 0
@@ -34,17 +34,17 @@ class layer1Solver(crossSolver):
         return crct
 
     def getCrossBack(self):
-        if self.getYellowEdges()[4] == 4:
+        if self.getWhiteEdges()[4] == 4:
             return
         for i in range(3):
             self.D()
-            if self.getYellowEdges()[4] == 4:
+            if self.getWhiteEdges()[4] == 4:
                 return
         raise Exception("Cross lost")
 
-    def rotYellowCornerTop(self):
+    def rotWhiteCornerTop(self):
         #converts all the top pieces into top_front pieces
-        piece = self.getYellowCorners()[1][0]
+        piece = self.getWhiteCorners()[1][0]
         sort_order = {1:0, 2:1, 4:2, 3:3}
         colors = tuple(sorted(piece[0][1:], key=lambda x:sort_order[x]))
         if colors == (1,3):
@@ -68,15 +68,15 @@ class layer1Solver(crossSolver):
         func[0](self)
         self.Ui()
         func[1](self)
-        self.YellowCornersTop()
+        self.WhiteCornersTop()
         return
 
-    def YellowCornersTop(self):
+    def WhiteCornersTop(self):
         #slots all the top front pieces recursively
         self.getCrossBack()
-        if self.getYellowCorners()[4] == 4:
+        if self.getWhiteCorners()[4] == 4:
             return
-        top,top_front = self.getYellowCorners()[1:3]
+        top,top_front = self.getWhiteCorners()[1:3]
         if len(top)+len(top_front) == 0:
             return 
         try:
@@ -111,18 +111,17 @@ class layer1Solver(crossSolver):
             func[0](self)
             ufunc_dict[left_flag][1](self)
             func[1](self)
-            self.YellowCornersTop()
+            self.WhiteCornersTop()
             return
         except IndexError:
-            self.rotYellowCornerTop()
+            self.rotWhiteCornerTop()
             return
 
-
-    def YellowCornersBottom(self):
+    def WhiteCornersBottom(self):
         #pushes all wrongly slotted pieces to top layer
-        if self.getYellowCorners()[4] == 4:
+        if self.getWhiteCorners()[4] == 4:
             return
-        wrong_pieces = [piece for piece in self.getYellowCorners()[3] if piece not in self.finalCorners]
+        wrong_pieces = [piece for piece in self.getWhiteCorners()[3] if piece not in self.finalCorners]
         pos_dict = {4:0, 5:3, 6:2, 7:1}
         func_dict = {4:[lambda x:x.F(), lambda x:x.Fi()],\
                      5:[lambda x:x.R(), lambda x:x.Ri()],\
@@ -132,7 +131,7 @@ class layer1Solver(crossSolver):
         for piece in wrong_pieces:
             pos = piece[1]
             for i in range(4):
-                top,top_front = self.getYellowCorners()[1:3]
+                top,top_front = self.getWhiteCorners()[1:3]
                 top_total = top + top_front
                 if all(t[1]!=pos_dict[pos] for t in top_total):
                     break
@@ -144,10 +143,10 @@ class layer1Solver(crossSolver):
     def runLayer1Solver(self):
         self.runCrossSolver()        
         while True:
-            yellowCorners,top,top_front,bottom,crct = self.getYellowCorners()
+            WhiteCorners,top,top_front,bottom,crct = self.getWhiteCorners()
             if crct == 4:
                 break
-            self.YellowCornersTop()
-            self.YellowCornersBottom()
+            self.WhiteCornersTop()
+            self.WhiteCornersBottom()
         self.compressAlgo()
         return
