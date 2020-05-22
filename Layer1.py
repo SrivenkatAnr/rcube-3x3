@@ -17,3 +17,22 @@ cube = layer3Solver(face_dict)
 print("Initial Edges: ",cube.getYellowEdges()[0])
 print("Initial Corners: ",cube.getYellowCorners()[0])
 cube.runCubeSolver()
+cube.compressAlgo()
+
+def printSoln(algo):
+    flag = True
+    if len(algo)==1:
+        flag = False
+    while flag:
+        for i in range(len(algo)-1):
+            if (algo[i] == algo[i+1]+'i') or (algo[i]+"i" == algo[i+1]):
+                del algo[i]; del algo[i]
+                break
+            if algo[i] == algo[i+1]:
+                del algo[i]; algo[i].replace("i",""); algo[i] += "2"
+                break
+        if (i == len(algo)-2) or (len(algo)<3):
+            flag = False
+    print(*algo,sep=',')
+
+printSoln(cube.algo)

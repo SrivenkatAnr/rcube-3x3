@@ -129,7 +129,6 @@ class layer3Solver(layer2Solver):
 		for i in range(4):
 			faces = [face.reshape(9,1) for face in self.return2DFaces()]
 			if all([len(np.unique(face))==1 for face in faces]):
-				print("Solved!!!")
 				self.compressAlgo()
 				return
 			self.U()
