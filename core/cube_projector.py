@@ -1,8 +1,11 @@
 import pygame
 import numpy as np
+from .layer3_solver import layer3Solver
 from .cube_sim import Cube
 import collections
 import time
+import threading
+import random
 
 pygame.init()
 
@@ -16,19 +19,6 @@ key_to_function = { pygame.K_LEFT:   (lambda x: x.transformall(x.rotateYMatrix(-
                     pygame.K_UP:     (lambda x: x.transformall(x.rotateXMatrix(-15))),
                     pygame.K_EQUALS: (lambda x: x.transformall(x.rotateZMatrix(+15))),
                     pygame.K_MINUS:  (lambda x: x.transformall(x.rotateZMatrix(-15)))}
-
-movements = {'r':lambda x:x.R(),\
-             'l':lambda x:x.L(),\
-             'u':lambda x:x.U(),\
-             'f':lambda x:x.F(),\
-             'b':lambda x:x.B(),\
-             'd':lambda x:x.D(),\
-             'ri':lambda x:x.Ri(),\
-             'li':lambda x:x.Li(),\
-             'ui':lambda x:x.Ui(),\
-             'fi':lambda x:x.Fi(),\
-             'bi':lambda x:x.Bi(),\
-             'di':lambda x:x.Di()}
 
 class cubeProjection:
 #Displays 3D objects on a Pygame screen
@@ -123,31 +113,72 @@ class cubeProjection:
         facelist = self.cube3D.return3DFaces()
         for wireframe in self.wireframes.values():
             wireframe.updateFaces(facelist)
-            
-    def run(self):
-        running = True
-        while running:
+    
+    def scrambler(self):
+        keys = list(self.cube3D.rotation_dict.keys())
+        print("scramble = ", end = ' ')
+        for i in range(20):
+            ind = random.randrange(12)
+            rot = keys[ind]
+            print(rot, end=' ')
+            self.cube3D.rotation_dict[rot](self.cube3D)
+            self.updateall()
+            time.sleep(0.2)
+
+    def solver(self):
+        faces = self.cube3D.return2DFaces()
+        faces = sorted(faces,key=lambda b:b[1][1],reverse=False)
+        face_dict = {}
+        side = ["top","left","front","back","right","bottom"]
+        for i in range(6):
+            face_dict[side[i]] = faces[i]
+
+        solver = layer3Solver(face_dict)
+        solver.runCubeSolver()
+        solver.compressAlgo()
+        for rot in solver.algo:
+            self.cube3D.rotation_dict[rot](self.cube3D)
+            self.updateall()
+            time.sleep(0.15)
+        print("Solved!!!")
+        print(solver.algo)
+
+    def terminal(self):
+        buff = ""
+        print("Enter the rotation key in lowercase, eg, \"ri\" \nEnter \"scramble\" for scrambling \nEnter \"solve\" for solving \nEnter \"exit\" to exit")
+        while self.running:
+            print(buff)
+            command = input("\n>>> ")
+
+            if command == "exit":
+                self.running = False
+            elif command == "scramble":
+                self.scrambler()
+            elif command in self.cube3D.rotation_dict.keys():
+                self.cube3D.rotation_dict[command](self.cube3D)
+                self.updateall()
+            elif command == "solve":
+                self.solver()
+            else:
+                pass
+
+    def run(self):        
+        self.running = True
+        try:
+            thread = threading.Thread(target=self.terminal)
+            thread.start()
+        except:
+            print("Error: unable to start thread")
+
+        while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False                
-
+                    self.running = False    
                 elif event.type == pygame.KEYDOWN:
                     if event.key in key_to_function:
-                        key_to_function[event.key](self)
-                    else:
-                        cmd = pygame.key.name(event.key)
-                        t = time.time()
-                        while (time.time() - t)<T_DELAY:
-                            for event in pygame.event.get():
-                                if event.type == pygame.KEYDOWN:
-                                    cmd += pygame.key.name(event.key)
-                        try:
-                            print(self.cube3D.rotation_dict[cmd](self.cube3D))
-                        except:
-                            pass
-                    
-            self.updateall()
+                        key_to_function[event.key](self)                               
             self.screen.fill(self.background)
+            self.updateall()
             self.display()
             pygame.display.flip()
             
