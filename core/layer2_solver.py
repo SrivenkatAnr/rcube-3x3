@@ -61,7 +61,7 @@ class layer2Solver(layer1Solver):
             self.slotMidEdges(None)
             return
         except:
-            print("quitting",self.getMidEdges()[2])
+            #print("quitting",self.getMidEdges()[2])
             return
 
     def pushMidEdges(self):

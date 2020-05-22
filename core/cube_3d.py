@@ -1,5 +1,5 @@
 import numpy as np
-from .layer2_solver import layer2Solver
+from .layer3_solver import layer3Solver
 from .cube_sim import Cube
 
 class Cube3D(Cube):
@@ -70,8 +70,25 @@ class Cube3D(Cube):
 		for i in range(6):
 		    face_dict[side[i]] = faces[i]
 
-		solver = layer2Solver(face_dict)
-		solver.runLayer2Solver()
-		print("Solved till Layer2")
-		#solver.compressAlgo()
+		solver = layer3Solver(face_dict)
+		solver.runCubeSolver()
+		solver.compressAlgo()
 		return solver.algo
+
+	def printSoln(self,algo):
+	    flag = True
+	    if len(algo)==1:
+	        flag = False
+	    i=0
+	    while flag:
+	        for i in range(len(algo)-1):
+	            if (algo[i] == algo[i+1]+'i') or (algo[i]+"i" == algo[i+1]):
+	                del algo[i]; del algo[i]
+	                break
+	            if algo[i] == algo[i+1]:
+	                del algo[i]; algo[i].replace("i",""); algo[i] += "2"
+	                break
+	        if (i == len(algo)-2) or (len(algo)<2):
+	            flag = False
+	    print("Solution found in {} moves".format(len(algo)))
+	    print(*algo,sep=' ')
