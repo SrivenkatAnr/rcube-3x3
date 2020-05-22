@@ -16,7 +16,8 @@ class Piece3D(Piece):
 		"back" : [1, 2, 5, 6]
 		}
 		self.rotationMatrix = np.eye(3)
-		self.colormap = [(1,1,1),(1,0.647,0),(0,1,0),(0,0,1),(1,0,0),(1,1,0),(0,0,0)]
+		#self.colormap = [(1,1,1),(1,0.647,0),(0,1,0),(0,0,1),(1,0,0),(1,1,0),(0,0,0)]
+		self.colormap = [(1,1,0),(1,0,0),(0,0,1),(0,1,0),(1,0.647,0),(1,1,1), (0,0,0)]
 
 	def render(self, location, scale, inRotation):
 		vertices = self.vertices.copy()

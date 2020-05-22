@@ -132,4 +132,4 @@ class layer3Solver(layer2Solver):
 				self.compressAlgo()
 				return
 			self.U()
-		raise Exception("Error 404!!!",ind)
+		raise Exception("Error 404!!!")
