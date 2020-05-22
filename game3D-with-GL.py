@@ -65,7 +65,7 @@ def solver():
 	algo = cube.solve()
 	for rot in algo:
 		cube.rotations3D_dict[rot](cube)
-		time.sleep(0.1)
+		time.sleep(0.15)
 	print("Solved!!")
 	cube.printSoln(algo)
 
