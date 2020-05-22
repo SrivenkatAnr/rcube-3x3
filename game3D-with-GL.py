@@ -66,7 +66,7 @@ def solver():
 	print("Solution in {} moves".format(len(algo)),algo)
 	for rot in algo:
 		cube.rotations3D_dict[rot](cube)
-		time.sleep(0.2)
+		time.sleep(0.1)
 
 def terminal():
 	global done
