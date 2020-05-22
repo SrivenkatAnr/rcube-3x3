@@ -34,7 +34,7 @@ gl.glTranslatef(0.0, 0.0, -8.0)
 
 faces = []
 for i in range(6):
-    side = np.loadtxt("matrices/scrambled-3/side{}.txt".format(i))
+    side = np.loadtxt("matrices/solved/side{}.txt".format(i))
     faces.append(np.uint8(side))
 
 faces = sorted(faces,key=lambda b:b[1][1],reverse=False)
