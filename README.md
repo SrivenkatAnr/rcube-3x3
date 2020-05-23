@@ -4,17 +4,17 @@
 
 ### Demo:
 On running the main python file, a separate window opens, rendering the 3D view of the cube. 
-<br><br>
+
+
 <img src = https://raw.githubusercontent.com/SrivenkatAnr/rcube-3x3/master/README-pics/starting.png width = "75%" />
-<br><br>
 
-It also opens up a secondary cmd prompt in the default terminal window, where the user can enter specific commands for specific functions like *scramble*, *solve*, *r*, *ri* etc.
+It also opens up a secondary cmd prompt in the default terminal window, where the user can enter specific commands for specific functions like **_scramble_**, **_solve_**, **_r_**, **_ri_** etc.
 
-Sample pic:
-<br><br>
+On scrambling, the window will look like:
+
 <img src = https://raw.githubusercontent.com/SrivenkatAnr/rcube-3x3/master/README-pics/scrambled.png width = "75%" />
-<br><br>
 
+To create a specific scramble, enter the code for each rotation in a new line.
 ### Dependencies:
 1. opencv==3.4.2
 2. numpy==1.15.2
@@ -23,7 +23,7 @@ Sample pic:
 5. scikit-learn==0.20.0
 6. pygame==1.9.2
 
-You can install the above dependencies manually or by using by creating a new virtual environment(recommended) and cd into rcube-3x3 folder and using, `pip install requirements.txt`
+You can install the above dependencies manually or you can creating a new virtual environment(recommended) and cd into rcube-3x3 folder and run, `pip install requirements.txt`
 
 ### To run this file in your local machine:
 ##### Method (a): (For those who do not know to use the command line)
