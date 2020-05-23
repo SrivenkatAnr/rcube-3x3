@@ -1,21 +1,21 @@
-#A 3x3 Rubik's cube Solver and Simulator
+# A 3x3 Rubik's cube Solver and Simulator
 
-####This program creates a 3D simulation of the rubik's cube and includes and an inbuilt solver tool that uses Beginner's method for solving.
+#### This program creates a 3D simulation of the rubik's cube and includes and an inbuilt solver tool that uses Beginner's method for solving.
 
-###Demo:
+### Demo:
 On running the main python file, a separate window opens, rendering the 3D view of the cube. 
 <br><br>
-<img src = https://raw.githubusercontent.com/SrivenkatAnr/rcube-3x3/master/README-pics/starting.png width = "40%" />
+<img src = https://raw.githubusercontent.com/SrivenkatAnr/rcube-3x3/master/README-pics/starting.png width = "75%" />
 <br><br>
 
 It also opens up a secondary cmd prompt in the default terminal window, where the user can enter specific commands for specific functions like *scramble*, *solve*, *r*, *ri* etc.
 
 Sample pic:
 <br><br>
-<img src = https://raw.githubusercontent.com/SrivenkatAnr/rcube-3x3/master/README-pics/scrambled.png width = "40%" />
+<img src = https://raw.githubusercontent.com/SrivenkatAnr/rcube-3x3/master/README-pics/scrambled.png width = "75%" />
 <br><br>
 
-###Dependencies:
+### Dependencies:
 1. opencv==3.4.2
 2. numpy==1.15.2
 3. PyOpenGL==3.1.5
@@ -25,7 +25,7 @@ Sample pic:
 
 You can install the above dependencies manually or by using by creating a new virtual environment(recommended) and cd into rcube-3x3 folder and using, `pip install requirements.txt`
 
-###To run this file in your local machine:
+### To run this file in your local machine:
 ##### Method (a): (For those who do not know to use the command line)
    1. Click on the green button (Clone or Download) on the top-right corner of this page.
    2. Extract the zip file and run the game3D-with-GL.py file
