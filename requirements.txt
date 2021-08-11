@@ -1,4 +1,6 @@
-PyOpenGL
-PyOpenGL_accelerate
-numpy
-pygame
+opencv==3.4.2
+numpy==1.15.2
+PyOpenGL==3.1.5
+PyOpenGL-accelerate==3.1.5
+scikit-learn==0.20.0
+pygame==1.9.2
