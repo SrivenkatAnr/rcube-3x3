@@ -3,7 +3,7 @@
 #### This program creates a 3D simulation of the rubik's cube and includes and an inbuilt solver tool that uses Beginner's method for solving.
 
 ### Demo:
-On running the main python file, a separate window opens, rendering the 3D view of the cube. 
+On running the main python file (game3D-with-GL.py), a separate window opens rendering the 3D view of the cube. 
 
 
 <img src = https://raw.githubusercontent.com/SrivenkatAnr/rcube-3x3/master/README-pics/starting.png width = "75%" />
@@ -23,7 +23,7 @@ To create a specific scramble, enter the code for each rotation in a new line.
 5. scikit-learn==0.20.0
 6. pygame==1.9.2
 
-You can install the above dependencies manually or you can creating a new virtual environment(recommended) and cd into rcube-3x3 folder and run, `pip install requirements.txt`
+You can install the above dependencies manually or you can creating a new virtual environment(recommended) and cd into rcube-3x3 folder and run, `pip install -r requirements.txt`
 
 ### To run this file in your local machine:
 ##### Method (a): (For those who do not know to use the command line)
