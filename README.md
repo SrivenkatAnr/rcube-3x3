@@ -33,5 +33,5 @@ You can install the above dependencies manually or you can creating a new virtua
 ##### Method (b): (For those who are comfortable using the command line)
    1. Copy the url of this repo. [https://github.com/SrivenkatAnr/rcube-3x3.git](https://github.com/SrivenkatAnr/rcube-3x3.git)
    2. Make sure git is installed on your local machine. If not, check out this [link](https://git-scm.com/downloads) to install it.
-   3. Open terminal and change to the directory where you want to have a local copy and clone this repo using `git clone <url>`
+   3. Open terminal and change to the directory where you want to have a local copy and clone this repo using `git clone https://github.com/SrivenkatAnr/rcube-3x3`
    4. Run the game python file using `python game3D-with-GL.py`
