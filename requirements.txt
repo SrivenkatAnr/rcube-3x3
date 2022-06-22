@@ -1,5 +1,5 @@
 opencv==3.4.2
-numpy==1.15.2
+numpy==1.22.0
 PyOpenGL==3.1.5
 PyOpenGL-accelerate==3.1.5
 scikit-learn==0.20.0
